@@ -3,19 +3,17 @@ package Klassen;
 import Enum.Symbol;
 import java.util.Scanner;
 
-public class SpielfeldSpieler extends Spielfeld{
+public class SpielfeldMensch extends Spielfeld{
 
-    public SpielfeldSpieler(int groesse, String spieler) {
+    public SpielfeldMensch(int groesse, String spieler) {
         super(groesse, spieler);
     }
-
-
 
     public void platziereSchiffe(){
         Scanner sc = new Scanner(System.in);
         int i = 1;
-        for(Schiff schiff : schiffe){
-            System.out.println("Sie platzieren nun Ihr " + i + " Schiff mit der Länge " + schiff.getLaenge() + ".");
+        for(int n = 0; i <= schiffe.size();){
+            System.out.println("Sie platzieren nun Ihr " + i + " Schiff mit der Länge " + schiffe.get(n).getLaenge() + ".");
             System.out.println("Geben Sie nun die gewünschte X Koordinate Ihres Schiffes ein: ");
             int x = sc.nextInt() - 1;
             System.out.println("Geben Sie nun die gewünschte Y Koordinate Ihres Schiffes ein: ");
@@ -23,14 +21,21 @@ public class SpielfeldSpieler extends Spielfeld{
             System.out.println("Geben Sie die Richtung des Schiffes ein. [oben] [unten] [rechts] [links]");
             String richtung = sc.next();
 
-            setzeSchiffe(x, y, richtung, schiff);
+            if(prüfeSpielfeld(x,y,richtung,schiffe.get(n))) {
+                setzeSchiffe(x, y, richtung, schiffe.get(n));
+                n++;
+                i++;
+            } else { //Exception
+                continue;
+            }
+            anzeigenSpielfeld();
         }
     }
 
     public void anzeigenSpielfeld(){
         //Hier wird ober dem Spielfeld ein Koordinatensystem in der Konsole ausgegeben.
         System.out.println(" ");
-        System.out.println(this.spieler);
+        System.out.println(this.name);
         System.out.print("   ");
         for (int i = 1; i <= spielfeld.length; i++) {
             System.out.print(i + "  ");

@@ -3,15 +3,14 @@ import Enum.Symbol;
 
 import java.util.ArrayList;
 
-public class Spielfeld {
+abstract class Spielfeld {
 
     protected ArrayList<Schiff> schiffe;
     protected String[][] spielfeld;
-    protected String spieler;
+    protected String name;
 
-    public Spielfeld(int groesse, String spieler){
+    public Spielfeld(int groesse, String name){
         spielfeld = new String[groesse][groesse];
-        this.spieler = spieler;
         schiffe = new ArrayList<>();
         for (int i = 0; i < spielfeld.length; i++) {
             for (int j = 0; j < spielfeld[i].length; j++) {
@@ -24,7 +23,6 @@ public class Spielfeld {
             schiffe.add(schiff);
         }
     }
-
 
     //Getter und Setter
 
@@ -64,15 +62,10 @@ public class Spielfeld {
                         break;
                 }
             }
-            anzeigenSpielfeld();
         }
     }
 
-    public void platziereSchiffe(){
-
-    }
-
-    public void anzeigenSpielfeld(){}
+    abstract void anzeigenSpielfeld();
 
     public boolean prüfeSpielfeld(int x, int y, String richtung, Schiff schiff){
         int count = 0;

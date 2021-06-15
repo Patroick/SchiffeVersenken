@@ -4,15 +4,17 @@ public class Main{
 
     public static void main(String[] args){
 
-        Spielfeld pc = new SpielfeldPC(10, "PC");
-        pc.anzeigenSpielfeld();
+        Spieler pc = new SpielerPC(10, "PC");
+        pc.spielfeld.anzeigenSpielfeld();
         pc.platziereSchiffe();
-        pc.anzeigenSpielfeld();
+        pc.spielfeld.anzeigenSpielfeld();
 
-        Spielfeld spieler1 = new SpielfeldSpieler(10, "Spieler1");
-        spieler1.anzeigenSpielfeld();
-        spieler1.platziereSchiffe();
-        spieler1.anzeigenSpielfeld();
+        Spieler spieler = new SpielerMensch(10, "Spieler");
+        spieler.spielfeld.anzeigenSpielfeld();
+        spieler.platziereSchiffe();
+        spieler.spielfeld.anzeigenSpielfeld();
+
+
 
     }
 
