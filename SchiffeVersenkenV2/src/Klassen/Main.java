@@ -13,9 +13,6 @@ public class Main{
         spieler.spielfeld.anzeigenSpielfeld();
         spieler.platziereSchiffe();
         spieler.spielfeld.anzeigenSpielfeld();
-
-
-
     }
 
 }
