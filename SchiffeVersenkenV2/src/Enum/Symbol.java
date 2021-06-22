@@ -1,5 +1,9 @@
 package Enum;
 
+/**
+ * Enum Klasse um die Symbole für das Spielfeld zu speichern
+ */
+
 public enum Symbol {
 
     WASSER("\u001B[36m" + "~" + "\u001B[0m"), SCHIFF("\u001B[30m" + "#" + "\u001B[0m"),

@@ -2,55 +2,75 @@ package Klassen;
 
 import java.util.Scanner;
 
-import Enum.Symbol;
-import Exceptions.AlreadyHitException;
+import Exceptions.InvalidIndexException;
+import Exceptions.InvalidInputException;
+
+/**
+ * Subklasse von Spieler implementiert platziereSchiffe und angriff
+ */
 
 public class SpielerMensch extends Spieler {
 
+    /**
+     * Konstruktor der Klasse SpielerMensch der ein Spielfeld mit den übergeben paramtern erstellt
+     *
+     * @param groesse
+     * @param name
+     */
     public SpielerMensch(int groesse, String name) {
-        spielfeld = new SpielfeldMensch(groesse, name);
+        super(groesse, name);
     }
 
+    /**
+     * Methode in der Unser Input abgefragt wird und an die Methode setzeSchiffe der Klasse Spielfeld übergeben wird.
+     */
+    @Override
     public void platziereSchiffe() {
         Scanner sc = new Scanner(System.in);
-        int i = 1;
-        for (int n = 0; i <= spielfeld.getSchiffe().size(); ) {
-            System.out.println("Sie platzieren nun Ihr " + i + " Schiff mit der Länge " + spielfeld.getSchiffe().get(n).getLaenge() + ".");
+        for (int i = 1; i <= spielfeld.getSchiffe().size(); ) {
+            System.out.println(spielfeld.getName() + " platziert nun sein " + i + " Schiff mit der Länge " + spielfeld.getSchiffe()
+                    .get(i - 1).getLaenge() + ".");
             System.out.println("Geben Sie nun die gewünschte X Koordinate Ihres Schiffes ein: ");
             int x = sc.nextInt() - 1;
             System.out.println("Geben Sie nun die gewünschte Y Koordinate Ihres Schiffes ein: ");
             int y = sc.nextInt() - 1;
             System.out.println("Geben Sie die Richtung des Schiffes ein. [oben] [unten] [rechts] [links]");
             String richtung = sc.next();
-
-            if (spielfeld.pruefeSpielfeld(x, y, richtung, spielfeld.getSchiffe().get(n))) {
-                spielfeld.setzeSchiffe(x, y, richtung, spielfeld.getSchiffe().get(n));
-                n++;
-                i++;
-            } else { //Exception
+            try {
+                if (spielfeld.pruefeSpielfeld(x, y, richtung, spielfeld.getSchiffe().get(i - 1))) {
+                    spielfeld.setzeSchiffe(x, y, richtung, spielfeld.getSchiffe().get(i-1));
+                    i++;
+                } else {
+                    continue;
+                }
+            } catch (InvalidInputException e) {
+                System.out.println(e.getMessage());
                 continue;
             }
-            spielfeld.anzeigenSpielfeld();
+            spielfeld.anzeigenSpielfeld(spielfeld.getArraySpielfeld());
         }
     }
 
-    public void angriff(Spieler gegner, int x, int y) {
+    /**
+     * Methode in der Unser Input abgefragt wird und an die Methode getroffen der Klasse Spieler übergeben wird.
+     * @param gegner
+     */
 
-        if (!pruefeGameOver()) {
-            Scanner sc = new Scanner(System.in);
+    @Override
+    public void angriff(Spieler gegner) {
 
-            //Wenn das Feld ein Schiff ist das Schiff durch ein Treffer Symbol ersetzt.
 
-            if (gegner.getSpielfeld().getArraySpielfeld()[y][x].equals(Symbol.SCHIFF)) {
-                spielfeld.setSpielfeld(x, y, Symbol.TREFFER);
-            } else {
-                spielfeld.setSpielfeld(x, y, Symbol.SCHUSS);
-            }
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Geben Sie die X Koordinate ein auf die Sie feuern wollen: ");
+        int x = sc.nextInt() - 1;
+        System.out.println("Geben Sie die Y Koordinate ein auf die Sie feuern wollen: ");
+        int y = sc.nextInt() - 1;
 
-            //Spielfeld wird auf der Konsole ausgegeben.
-            spielfeld.anzeigenSpielfeld();
+        gegner.getroffen(x, y);
 
-        }
+
     }
+
+
 }
 

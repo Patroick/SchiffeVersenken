@@ -1,18 +1,21 @@
 package Klassen;
 
+/**
+ * Main Klasse um das Programm zu starten
+ */
+
 public class Main{
+
+    /**
+     * Main Methode die nur eine KonsolenAusgabe ertsellt und start aufruft.
+     * @param args
+     */
 
     public static void main(String[] args){
 
-        Spieler pc = new SpielerPC(10, "PC");
-        pc.spielfeld.anzeigenSpielfeld();
-        pc.platziereSchiffe();
-        pc.spielfeld.anzeigenSpielfeld();
+        KonsolenAusgabe ausgabe = new KonsolenAusgabe();
+        ausgabe.start();
 
-        Spieler spieler = new SpielerMensch(10, "Spieler");
-        spieler.spielfeld.anzeigenSpielfeld();
-        spieler.platziereSchiffe();
-        spieler.spielfeld.anzeigenSpielfeld();
     }
 
 }
